@@ -1,0 +1,32 @@
+.banner {
+  background-color: var(--primary-color);
+}
+
+.container {
+  margin: 0 var(--default-margin-container);
+}
+
+.banner_item {
+  display: flex;
+  align-items: center;
+  padding: 15px 0;
+}
+
+.banner_icon {
+  background-color: #fff;
+  padding: 10px 10px;
+  border-radius: 10px;
+}
+
+.banner_title {
+  font-weight: 800;
+  font-size: 1.4rem;
+  color: var(--text-white-color);
+  margin: 0 20px 0 28px;
+}
+
+@media only screen and (max-width: 1024px) {
+  .container {
+    margin: 0 var(---margin-container-table);
+  }
+}

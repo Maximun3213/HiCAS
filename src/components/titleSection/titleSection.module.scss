@@ -1,0 +1,17 @@
+.container {
+  margin: 4% var(--default-margin-container);
+}
+
+.title_section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.title_background {
+  position: absolute;
+  font-size: 9rem;
+  color: var(--text-title-color);
+  z-index: -1;
+  font-weight: 800;
+}

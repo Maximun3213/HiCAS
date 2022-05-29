@@ -1,0 +1,6 @@
+.main_button:hover {
+  background-color: var(--primary-color);
+  & a {
+    color: #fff;
+  }
+}

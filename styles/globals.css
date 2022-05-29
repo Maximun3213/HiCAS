@@ -1,9 +1,34 @@
-html,
+@import 'normalize.css';
+
+:root{
+  --primary-color: #FB8020;
+  --text-white-color: #fff;
+  --text-black-color: #000;
+  --primary-background-color: #EBEBEB;
+  --text-title-color: #EEEEEE;
+
+  --default-layout-header-height: 60px;
+  --default-layout-width: 1920px;
+  --default-margin-container: 200px;
+
+  ---margin-container-table: 100px;
+}
+
 body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: SVN-Gilroy;
+  font-size: 1.6rem;
+  line-height: 1.5;
+  text-rendering: optimizespeed;
+
+}
+
+ul li {
+  list-style: none;
+}
+
+html {
+  font-size: 62.5%;
+  overflow-x: hidden;
 }
 
 a {
@@ -12,5 +37,68 @@ a {
 }
 
 * {
+  padding: 0;
+  margin: 0;
   box-sizing: border-box;
+}
+
+@font-face {
+  font-family: SVN-Gilroy;
+  font-style: normal;
+  font-weight: normal;
+  src: url('../src/assets/fonts/SVN-Gilroy-Black.woff');
+}
+
+
+@font-face {
+  font-family: SVN-Gilroy;
+  font-style: normal;
+  font-weight: normal;
+  src: url('../src/assets/fonts/SVN-Gilroy-Bold.woff');
+}
+
+
+@font-face {
+  font-family: SVN-Gilroy;
+  font-style: normal;
+  font-weight: normal;
+  src: url('../src/assets/fonts/SVN-Gilroy-Heavy.woff');
+}
+
+
+@font-face {
+  font-family: SVN-Gilroy;
+  font-style: normal;
+  font-weight: normal;
+  src: url('../src/assets/fonts/SVN-Gilroy-Light.woff');
+}
+
+
+@font-face {
+  font-family: SVN-Gilroy;
+  font-style: normal;
+  font-weight: normal;
+  src: url('../src/assets/fonts/SVN-Gilroy-Medium.woff');
+}
+
+@font-face {
+  font-family: SVN-Gilroy;
+  font-style: normal;
+  font-weight: normal;
+  src: url('../src/assets/fonts/SVN-Gilroy-Regular.woff');
+}
+
+@font-face {
+  font-family: SVN-Gilroy;
+  font-style: normal;
+  font-weight: normal;
+  src: url('../src/assets/fonts/SVN-Gilroy-Thin.woff');
+}
+
+.btn {
+  color: var(--text-white-color);
+  background-color: #FB8020;
+  outline: none;
+  cursor: pointer;
+  border: none;
 }
