@@ -10,6 +10,7 @@ const cx = classNames.bind(styles);
 
 function Button({
   width,
+  height,
   link = "https://hicas.vn/",
   children,
   margin = 0,
@@ -32,6 +33,7 @@ function Button({
     <button
       style={{
         width: width,
+        height: height,
         backgroundColor: colorBackGround,
         border: "none",
         outline: "none",
@@ -48,7 +50,6 @@ function Button({
       }}
       onClick={handleClick}
       className={cx("main_button")}
-      mainBtn={mainBtn}
     >
       <Link href="">
         <a style={{ fontWeight: 800 }}>

@@ -1,6 +1,11 @@
+.main_button {
+  transition-duration: 0.5s;
+}
 .main_button:hover {
   background-color: var(--primary-color);
+  transition-duration: 0.5s;
   & a {
     color: #fff;
+    transition-duration: 0.5s;
   }
 }

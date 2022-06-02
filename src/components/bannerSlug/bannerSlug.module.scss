@@ -1,0 +1,36 @@
+.banner {
+  width: 100%;
+  height: 40vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.banner::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: hsla(0, 3%, 6%, 0.537);
+}
+
+.banner_content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+  color: var(--text-white-color);
+  // user-select: none;
+  & h2 {
+    text-transform: uppercase;
+    font-weight: 800;
+    font-size: 4rem;
+  }
+}

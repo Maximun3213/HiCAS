@@ -46,16 +46,17 @@
 .footer_item {
   & li,
   p {
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     margin-bottom: 5px;
+    list-style: inside;
   }
 }
 
 .footer_menu {
-  padding-top: 30px;
+  padding-top: 20px;
   & li a:hover {
-    // list-style: disc;
-    text-decoration: underline;
+    color: var(--primary-color);
+    transition-duration: 0.3s;
   }
 }
 

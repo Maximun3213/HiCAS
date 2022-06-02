@@ -1,17 +1,19 @@
+import Slider from "react-slick";
 import React, { useEffect, useState } from "react";
+import classNames from "classnames/bind";
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Slider from "react-slick";
-import classNames from "classnames/bind";
-import styles from "./cardService.module.scss";
-import Button from "../button";
+
+import styles from "./cardBrand.module.scss";
+import Image from "next/image";
+
 const cx = classNames.bind(styles);
 
 function SampleNextArrow(props) {
   const { onClick } = props;
   return (
     <div className={cx("NextArrow")} onClick={onClick}>
-      <FontAwesomeIcon icon={faAngleRight} width={15} />
+      <FontAwesomeIcon icon={faAngleRight} width={10} />
     </div>
   );
 }
@@ -20,7 +22,7 @@ function SamplePrevArrow(props) {
   const { onClick } = props;
   return (
     <div className={cx("PrevArrow")} onClick={onClick}>
-      <FontAwesomeIcon icon={faAngleLeft} width={15} />
+      <FontAwesomeIcon icon={faAngleLeft} width={10} />
     </div>
   );
 }
@@ -30,7 +32,7 @@ var settings = {
   nextArrow: <SampleNextArrow />,
   prevArrow: <SamplePrevArrow />,
   speed: 500,
-  slidesToShow: 3,
+  slidesToShow: 6,
   slidesToScroll: 1,
   responsive: [
     {
@@ -59,50 +61,33 @@ var settings = {
   ],
 };
 
-function CardService() {
-  const [major, setMajor] = useState([]);
+function CardBrand() {
+  const [brands, setBrands] = useState([]);
   const API_URL = process.env.API_URL;
   useEffect(() => {
-    fetch(`${API_URL}/majors`)
+    fetch(`${API_URL}/brands`)
       .then((res) => res.json())
       .then((majors) => {
-        setMajor(majors);
+        setBrands(majors);
       });
   }, []);
   return (
     <div className={cx("container")}>
       <Slider {...settings}>
-        {major.map((value) => (
+        {brands.map((value) => (
           <div className="" key={value.id}>
             <div className={cx("card")}>
               <div
                 className={cx("card_image")}
                 style={{
                   backgroundImage: `url(${API_URL + value.Image.url})`,
-                  width: "100%",
-                  backgroundSize: "cover",
+                  width: "80%",
+                  height: "60%",
+                  backgroundSize: "contain",
                   backgroundRepeat: "no-repeat",
                   backgroundPosition: "center",
                 }}
               ></div>
-              <div className={cx("card_content")}>
-                <b className={cx("card_title")}>{value.title_major}</b>
-                <div className={cx("card_line")}></div>
-                <p className={cx("card_decs")}>{value.decs}</p>
-                <div className={cx("card_btn")}>
-                  <Button
-                    link="https://hicas.vn/"
-                    backgroundColor="transparent"
-                    width="100%"
-                    height="35px"
-                    border="1px solid #C4C4C4"
-                    borderRadius="20px"
-                    margin="4% auto"
-                  >
-                    Xem chi tiết
-                  </Button>
-                </div>
-              </div>
             </div>
           </div>
         ))}
@@ -111,4 +96,4 @@ function CardService() {
   );
 }
 
-export default CardService;
+export default CardBrand;

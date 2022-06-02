@@ -34,5 +34,6 @@ const nextConfig = {
     path: "/_next/image",
     loader: "default",
   },
+  // reactStrictMode: false,
 }),
   withImages();

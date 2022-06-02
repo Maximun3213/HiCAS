@@ -5,7 +5,12 @@
   --text-white-color: #fff;
   --text-black-color: #000;
   --primary-background-color: #EBEBEB;
+  --card-background-color: #F9F8F8;
+
   --text-title-color: #EEEEEE;
+  --background-color-section: #F2F2F2;
+
+  --card-border-radius: 10px;
 
   --default-layout-header-height: 60px;
   --default-layout-width: 1920px;
@@ -13,6 +18,7 @@
 
   ---margin-container-table: 100px;
 }
+
 
 body {
   font-family: SVN-Gilroy;
@@ -101,4 +107,13 @@ a {
   outline: none;
   cursor: pointer;
   border: none;
+}
+
+.slick-dots{
+  top: -2%;
+}
+
+.slick-dots .slick-active div{
+  background-color: #FB8020;
+  transition-duration: 0.5s;
 }

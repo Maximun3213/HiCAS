@@ -20,15 +20,14 @@ function MainRoute() {
         setItems(items);
       });
   }, []);
-
   const router = useRouter();
   return (
     <ul className={cx("menu_item")}>
       {items.map((item) => (
         // <li key={item.id}>{item.title}</li>
         <li
-          className={router.pathname == item.link ? cx("active") : ""}
           key={item.id}
+          className={router.pathname == item.url ? cx("active") : ""}
         >
           <Link href={item.url}>
             <a>{item.title}</a>

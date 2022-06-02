@@ -12,6 +12,7 @@ const cx = classNames.bind(styles);
 
 function Footer() {
   const [social, setSocial] = useState([]);
+  const [itemLink, setItemLink] = useState([]);
   const API_URL = process.env.API_URL;
 
   useEffect(() => {
@@ -19,6 +20,11 @@ function Footer() {
       .then((res) => res.json())
       .then((social) => {
         setSocial(social);
+      });
+    fetch(`${API_URL}/footers`)
+      .then((res) => res.json())
+      .then((footer) => {
+        setItemLink(footer);
       });
   }, []);
 
@@ -47,56 +53,20 @@ function Footer() {
                 ))}
               </ul>
             </div>
-            <div className={cx("footer_item")}>
-              <h4>Sản phẩm</h4>
-              <ul className={cx("footer_menu")}>
-                <li>
-                  <Link href="">
-                    <a>SmartMTO</a>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="">
-                    <a>AnyOn</a>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="">
-                    <a>ViThep</a>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="">
-                    <a>Ting Connect</a>
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            <div className={cx("footer_item")}>
-              <h4>Về chúng tôi</h4>
-              <ul className={cx("footer_menu")}>
-                <li>
-                  <Link href="">
-                    <a>Giới thiệu</a>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="">
-                    <a>Liên hệ</a>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="">
-                    <a>Tuyển dụng</a>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="">
-                    <a>Blog</a>
-                  </Link>
-                </li>
-              </ul>
-            </div>
+            {itemLink.map((value) => (
+              <div className={cx("footer_item")} key={value.id}>
+                <h4>{value.title}</h4>
+                <ul className={cx("footer_menu")}>
+                  {value.items_footers.map((item) => (
+                    <li key={item.id}>
+                      <Link href={item.link}>
+                        <a>{item.title_link}</a>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
             <div className={cx("footer_item")}>
               <h4>Đăng ký nhận thông tin</h4>
               <p className={cx("footer_menu")}>
