@@ -70,6 +70,7 @@
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   & li a {
     padding: 8px 30px;
+    color: #000;
   }
   & li {
     padding: 4% 0;
@@ -253,7 +254,7 @@
   }
 }
 
-.active {
+.menu_item > li.active {
   color: var(--primary-color);
 }
 .nav {
