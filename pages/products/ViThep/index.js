@@ -6,6 +6,7 @@ import ReactMarkdown from "react-markdown";
 import BannerSlug from "../../../src/components/bannerSlug";
 import TitleSection from "../../../src/components/titleSection";
 import CardPrice from "../../../src/components/cardPrice";
+import Button from "../../../src/components/button";
 import styles from "./ViThep.module.scss";
 
 const cx = classNames.bind(styles);
@@ -83,6 +84,27 @@ function ViThep() {
         <div className={cx("container")}>
           <div className={cx("card_price_wapper")}>
             <CardPrice />
+          </div>
+        </div>
+      </section>
+      <section>
+        <div
+          className={cx("banner_bottom")}
+          style={{ backgroundImage: "url(/images/bannerBottomViThep.jpg)" }}
+        >
+          <div className={cx("banner_content")}>
+            <h3>ViTHEP</h3>
+            <b>Bởi người việt cho người việt</b>
+            <p>Trải nghiệm miễn phí 30 ngày</p>
+            <Button
+              mainBtn="true"
+              width="200px"
+              borderRadius="20px"
+              margin="5% 0"
+              link="/contact"
+            >
+              Trải nghiệm ngay
+            </Button>
           </div>
         </div>
       </section>
