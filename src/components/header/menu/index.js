@@ -27,7 +27,9 @@ function MainRoute() {
         <li
           key={item.id}
           className={
-            router.pathname == item.url ? cx("active") : cx("dropdown")
+            router.pathname == item.url
+              ? cx("active", "dropdown")
+              : cx("dropdown")
           }
         >
           <Link href={item.url}>
@@ -45,7 +47,7 @@ function MainRoute() {
           {item.dropdown == true ? (
             <ul className={cx("dropdown_nav")}>
               <li>
-                <Link href="">
+                <Link href="/products/ViThep">
                   <a>ViTHEP</a>
                 </Link>
               </li>

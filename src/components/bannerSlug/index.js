@@ -15,16 +15,18 @@ function BannerSlug({ image, title, slug, titleSlug }) {
       className={cx("banner")}
     >
       <div className={cx("banner_content")}>
-        <h2>{title}</h2>
-        <p>
-          <Link href="/">
-            <a>Trang chủ</a>
-          </Link>
-          /
-          <Link href={slug}>
-            <a>{titleSlug}</a>
-          </Link>
-        </p>
+        <div className={cx("container")}>
+          <h2>{title}</h2>
+          <p>
+            <Link href="/">
+              <a>Trang chủ</a>
+            </Link>
+            /
+            <Link href={slug}>
+              <a>{titleSlug}</a>
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
   );

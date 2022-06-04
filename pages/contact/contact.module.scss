@@ -82,3 +82,9 @@
     height: 500px;
   }
 }
+
+@media only screen and (max-width: 500px) {
+  .container {
+    margin: 0 var(---margin-container-phone);
+  }
+}

@@ -15,9 +15,10 @@
 
   --default-layout-header-height: 60px;
   --default-layout-width: 1920px;
-  --default-margin-container: 200px;
 
+  --default-margin-container: 200px;
   ---margin-container-table: 100px;
+  ---margin-container-phone: 20px;
 }
 
 
@@ -117,4 +118,11 @@ a {
 .slick-dots .slick-active div{
   background-color: #FB8020;
   transition-duration: 0.5s;
+}
+
+@media only screen and (max-width: 500px) {
+  ::-webkit-scrollbar {
+    width: 0 !important;
+    display: none;
+  }
 }

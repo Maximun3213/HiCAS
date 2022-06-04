@@ -42,8 +42,9 @@ function ViThep() {
         <p className={cx("banner_content")}>{items.decs}</p>
         <div className={cx("video_product")}>
           <iframe
-            width="942px"
-            height="530px"
+            className={cx("video")}
+            // width="942px"
+            // height="530px"
             src={items.video_link}
             title="YouTube video player"
             frameBorder="0"

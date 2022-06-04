@@ -17,6 +17,11 @@
   }
 }
 
+.video {
+  width: 942px;
+  height: 530px;
+}
+
 .card_wapper {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -125,5 +130,14 @@
     background-size: cover;
     background-repeat: no-repeat;
     border-radius: 30px;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .container {
+    margin: 5% var(---margin-container-phone);
+  }
+  .video {
+    height: 250px;
   }
 }

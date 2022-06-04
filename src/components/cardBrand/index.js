@@ -32,6 +32,7 @@ var settings = {
   nextArrow: <SampleNextArrow />,
   prevArrow: <SamplePrevArrow />,
   speed: 500,
+  autoplay: true,
   slidesToShow: 6,
   slidesToScroll: 1,
   responsive: [
@@ -52,10 +53,12 @@ var settings = {
       },
     },
     {
-      breakpoint: 480,
+      breakpoint: 500,
       settings: {
         slidesToShow: 1,
         slidesToScroll: 1,
+
+        arrows: false,
       },
     },
   ],

@@ -102,3 +102,9 @@
     right: -10%;
   }
 }
+
+@media only screen and (max-width: 500px) {
+  .container {
+    margin: 10% var(---margin-container-phone);
+  }
+}
