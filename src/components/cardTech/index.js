@@ -18,7 +18,7 @@ function CardTech() {
       .then((card) => {
         setCards(card);
       });
-  });
+  }, []);
   return (
     <div className={cx("container")}>
       <div className={cx("card_wapper")}>

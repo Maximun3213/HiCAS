@@ -1,0 +1,23 @@
+.card_wapper {
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  .card_img {
+    width: 130px;
+    height: 130px;
+    background-color: var(--background-color-section);
+    padding: 15px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .card_content {
+    text-align: center;
+    font-weight: 800;
+    margin: 15px 0;
+    font-size: 1.4rem;
+  }
+}

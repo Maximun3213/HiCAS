@@ -1,0 +1,84 @@
+.container {
+  margin: 3% var(--default-margin-container);
+}
+
+.contact_wapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  & .contact_col {
+    width: 48%;
+    overflow: hidden;
+    & h3 {
+      margin-bottom: 2%;
+    }
+    & .address {
+      & .address_item {
+        margin-bottom: 3%;
+        font-weight: 800;
+        & > b {
+          text-transform: uppercase;
+        }
+        & > p {
+          font-size: 1.4rem;
+          margin: 2% 0;
+        }
+        & .line {
+          background-color: #c4c4c4;
+          width: 100%;
+          height: 1px;
+        }
+      }
+    }
+    & .contact {
+      & .form {
+        & input,
+        textarea {
+          background-color: var(--background-color-section);
+          border: none;
+          outline: none;
+          font-weight: 800;
+          padding: 19px 25px;
+          border-radius: var(--card-border-radius);
+          margin: 1% 0;
+        }
+        & > input,
+        textarea {
+          width: 100%;
+          resize: none;
+        }
+        .form_inline {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          & input {
+            width: 48%;
+          }
+        }
+      }
+    }
+  }
+}
+
+.map {
+  height: 800px;
+}
+
+@media only screen and (max-width: 1024px) {
+  .container {
+    margin: 5% var(---margin-container-table);
+  }
+  .contact_wapper {
+    .contact_col {
+      width: 100%;
+      & h3 {
+        text-align: center;
+      }
+    }
+  }
+  .map {
+    margin-top: 5%;
+    height: 500px;
+  }
+}

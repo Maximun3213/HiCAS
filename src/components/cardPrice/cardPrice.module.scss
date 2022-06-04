@@ -1,0 +1,97 @@
+.card_wapper {
+  background-color: #fff;
+  width: 416px;
+  height: 570px;
+  position: relative;
+  padding: 2% 2% 5% 2%;
+  border-radius: 30px;
+  box-shadow: 4px 7px 14px 0px #00000026;
+  margin-bottom: 4%;
+}
+
+.card_header {
+  text-align: center;
+  // background-color: #fb8020;
+  padding: 3%;
+  color: var(--text-white-color);
+  font-weight: 800;
+  border-radius: 20px;
+  & h4 {
+    font-size: 3rem;
+  }
+  & p {
+    font-size: 1.3rem;
+  }
+}
+
+.price {
+  margin: 3% 0;
+  font-size: 4rem;
+  text-align: center;
+  & sup {
+    font-size: 2rem;
+  }
+}
+
+.table-list {
+  background: #fff;
+  color: #575656;
+}
+
+.table-list li {
+  font-size: 1.4rem;
+  font-weight: 700;
+  padding: 12px 8px;
+  display: flex;
+  align-items: center;
+}
+
+.table-list li:nth-child(1n) {
+  background: #f0f0f0;
+}
+.table-list li:nth-child(2n) {
+  background: #fff;
+}
+
+.table-list li:first-child {
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+.table-list li:last-child {
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.card_price_btn {
+  position: absolute;
+  bottom: -3%;
+  width: 180px;
+  // right: 50%;
+  // left: 25%;
+  left: 0px;
+  right: 0px;
+  margin: 0px auto;
+}
+
+.icon {
+  width: 15px;
+  margin: 0 2%;
+}
+
+.icon_check {
+  color: var(--primary-color);
+}
+
+.icon_close {
+  color: #000;
+  width: 13px;
+  margin: 0 2%;
+}
+
+@media only screen and (max-width: 1024px) {
+  .card_wapper {
+    width: 100%;
+    margin-bottom: 5%;
+  }
+}
