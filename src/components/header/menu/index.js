@@ -24,31 +24,45 @@ function MainRoute() {
   return (
     <ul className={cx("menu_item")}>
       {items.map((item) => (
-        // <li key={item.id}>{item.title}</li>
         <li
           key={item.id}
-          className={router.pathname == item.url ? cx("active") : ""}
+          className={
+            router.pathname == item.url ? cx("active") : cx("dropdown")
+          }
         >
           <Link href={item.url}>
             <a>{item.title}</a>
           </Link>
-          {/* <FontAwesomeIcon
-          icon={faAngleDown}
-          style={{ width: 10 }}
-          className={cx("menu_arrow")}
-        /> */}
-          {/* <ul className={cx("dropdown_nav")}>
-            <li>
-              <Link href="">
-                <a>Link 2</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="">
-                <a>Link 3</a>
-              </Link>
-            </li>
-          </ul> */}
+          {item.dropdown == true ? (
+            <FontAwesomeIcon
+              icon={faAngleDown}
+              style={{ width: 10 }}
+              className={cx("menu_arrow")}
+            />
+          ) : (
+            ""
+          )}
+          {item.dropdown == true ? (
+            <ul className={cx("dropdown_nav")}>
+              <li>
+                <Link href="">
+                  <a>ViTHEP</a>
+                </Link>
+              </li>
+              <li>
+                <Link href="">
+                  <a>SmartMTO</a>
+                </Link>
+              </li>
+              <li>
+                <Link href="">
+                  <a>AnyOn</a>
+                </Link>
+              </li>
+            </ul>
+          ) : (
+            ""
+          )}
         </li>
       ))}
     </ul>
