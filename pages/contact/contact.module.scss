@@ -56,6 +56,19 @@
             width: 48%;
           }
         }
+        & button {
+          background-color: var(--primary-color);
+          width: 100%;
+          color: var(--text-white-color);
+          font-weight: 800;
+          padding: 10px 0;
+          border-radius: 10px;
+          border: none;
+          outline: none;
+          text-align: center;
+          vertical-align: middle;
+          cursor: pointer;
+        }
       }
     }
   }

@@ -15,6 +15,8 @@ function Footer() {
   const [itemLink, setItemLink] = useState([]);
   const API_URL = process.env.API_URL;
 
+  const [email, setEmail] = useState("");
+
   useEffect(() => {
     fetch(`${API_URL}/social-medias`)
       .then((res) => res.json())
@@ -27,6 +29,29 @@ function Footer() {
         setItemLink(footer);
       });
   }, []);
+
+  async function addEmail() {
+    const Email = {
+      Email: email,
+    };
+    const add = await fetch(`${API_URL}/email-get-news`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(Email),
+    });
+
+    const addResponse = await add.json();
+
+    if (add.status === 200) {
+      alert("Cảm ơn bạn đã đăng ký nhận thông tin");
+      setEmail("");
+    } else {
+      alert("Đăng ký không thành công");
+    }
+  }
 
   return (
     <footer className={cx("footer")}>
@@ -73,8 +98,13 @@ function Footer() {
                 Send me updates from Hicas Software
               </p>
               <form action="" className={cx("form")}>
-                <input type="text" placeholder="Enter your email address" />
-                <button>
+                <input
+                  type="email"
+                  placeholder="Enter your email address"
+                  onChange={(e) => setEmail(e.target.value)}
+                  value={email}
+                />
+                <button type="button" onClick={() => addEmail()}>
                   <FontAwesomeIcon icon={faPaperPlane} style={{ width: 25 }} />
                 </button>
               </form>

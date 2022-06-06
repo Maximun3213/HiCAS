@@ -1,7 +1,7 @@
 import Link from "next/link";
 import classNames from "classnames/bind";
 import { useRouter } from "next/router";
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -10,11 +10,11 @@ import styles from "../header.module.scss";
 const cx = classNames.bind(styles);
 
 function MainRoute() {
-  // const API_URL = process.env;
+  const API_URL = process.env.API_URL;
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:1337/headers")
+    fetch(`${API_URL}/headers`)
       .then((res) => res.json())
       .then((items) => {
         setItems(items);
@@ -46,21 +46,21 @@ function MainRoute() {
           )}
           {item.dropdown == true ? (
             <ul className={cx("dropdown_nav")}>
-              <li>
-                <Link href="/products/ViThep">
-                  <a>ViTHEP</a>
-                </Link>
-              </li>
-              <li>
-                <Link href="">
-                  <a>SmartMTO</a>
-                </Link>
-              </li>
-              <li>
-                <Link href="">
-                  <a>AnyOn</a>
-                </Link>
-              </li>
+              {item.dropdown_items.map((value) => (
+                <li
+                  key={value.id}
+                  className={
+                    router.pathname == value.link
+                      ? cx("active_text_dropdown")
+                      : ""
+                  }
+                >
+                  {console.log(router.pathname)}
+                  <Link href={value.link}>
+                    <a>{value.title}</a>
+                  </Link>
+                </li>
+              ))}
             </ul>
           ) : (
             ""
@@ -70,16 +70,5 @@ function MainRoute() {
     </ul>
   );
 }
-
-// export async function getStaticProps() {
-//   const res = await fetch("http://localhost:1337/main-menu");
-//   const data = await res.json();
-
-//   return {
-//     props: {
-//       data,
-//     },
-//   };
-// }
 
 export default MainRoute;

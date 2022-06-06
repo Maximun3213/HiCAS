@@ -1,6 +1,8 @@
 import { Fragment, useEffect, useState } from "react";
 import classNames from "classnames/bind";
 import ReactMarkdown from "react-markdown";
+import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import BannerSlug from "../../src/components/bannerSlug";
 import TitleSection from "../../src/components/titleSection";
@@ -12,6 +14,12 @@ const cx = classNames.bind(styles);
 function Contact() {
   const [address, setAddress] = useState([]);
   const API_URL = process.env.API_URL;
+
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [content, setContent] = useState("");
+
   useEffect(() => {
     fetch(`${API_URL}/companies`)
       .then((res) => res.json())
@@ -19,7 +27,37 @@ function Contact() {
         setAddress(item);
       });
   }, []);
-  const position = { lat: 21.03074, lng: 105.78614 };
+
+  async function addMessage() {
+    const messageInfo = {
+      Name: name,
+      Phone: phone,
+      Email: email,
+      Content: content,
+    };
+
+    const add = await fetch(`${API_URL}/support-messages`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(messageInfo),
+    });
+
+    await add.json();
+
+    if (add.status === 200) {
+      alert("Gửi yêu cầu hổ trợ thành công");
+      setName("");
+      setPhone("");
+      setEmail("");
+      setContent("");
+    } else {
+      alert("Gửi yêu hổ trợ không thành công");
+    }
+  }
+
   return (
     <Fragment>
       <BannerSlug
@@ -47,10 +85,25 @@ function Contact() {
             <div className={cx("contact")}>
               <h3>YÊU CẦU HỖ TRỢ TỪ HICAS</h3>
               <form action="" className={cx("form")}>
-                <input type="text" placeholder="Họ tên" />
+                <input
+                  type="text"
+                  placeholder="Họ tên"
+                  onChange={(e) => setName(e.target.value)}
+                  value={name}
+                />
                 <div className={cx("form_inline")}>
-                  <input type="text" placeholder="Điện thoại" />
-                  <input type="Email" placeholder="Email" />
+                  <input
+                    type="text"
+                    placeholder="Điện thoại"
+                    onChange={(e) => setPhone(e.target.value)}
+                    value={phone}
+                  />
+                  <input
+                    type="Email"
+                    placeholder="Email"
+                    onChange={(e) => setEmail(e.target.value)}
+                    value={email}
+                  />
                 </div>
                 <textarea
                   name=""
@@ -58,11 +111,17 @@ function Contact() {
                   cols="30"
                   rows="10"
                   placeholder="Nội dung"
+                  onChange={(e) => setContent(e.target.value)}
+                  value={content}
                 ></textarea>
+                <button type="button" onClick={() => addMessage()}>
+                  <FontAwesomeIcon
+                    icon={faAngleRight}
+                    style={{ width: 6, marginRight: 10 }}
+                  />
+                  Gửi thông tin
+                </button>
               </form>
-              <Button mainBtn="true" width="100%" borderRadius="10px">
-                Gửi thông tin
-              </Button>
             </div>
           </div>
           <div className={cx("contact_col")}>

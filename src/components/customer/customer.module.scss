@@ -95,5 +95,17 @@
     & p {
       font-size: 1.4rem;
     }
+    &::after {
+      bottom: -3%;
+    }
+  }
+  .blockquote:after {
+    position: absolute;
+    content: "”";
+    color: var(--primary-color);
+    font-size: 20rem;
+    line-height: 0;
+    top: 5%;
+    left: 0;
   }
 }

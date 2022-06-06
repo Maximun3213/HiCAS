@@ -36,12 +36,17 @@ function Header() {
     sethandleNav("active_close");
   };
 
+  const [isActive, setActive] = useState("false");
+  function testChange(x) {
+    setActive(!isActive);
+  }
+
   return (
     <header className={cx("wrapper")}>
       <div className={cx("container")}>
         <Link href="/">
           <a>
-            <Image src={Logo} alt="HiCas Logo" width={157} height={91} />
+            <Image src={Logo} alt="HiCas Logo" width={140} height={45} />
           </a>
         </Link>
         <div className={cx("menu")}>
@@ -49,17 +54,6 @@ function Header() {
             <MainRoute />
           </div>
           <div className={cx("menu_action")}>
-            {/* <div className={cx("search-wapper")}>
-                <form action="" className={cx("search-form")}>
-                  <input type="text" placeholder="Search" />
-                  <button className={cx("btn_search")}>
-                    <FontAwesomeIcon
-                      icon={faMagnifyingGlass}
-                      style={{ width: 20 }}
-                    />
-                  </button>
-                </form>
-              </div> */}
             <div className={cx("search-wapper", search)}>
               <div className={cx("search-box")}>
                 <input
@@ -93,6 +87,7 @@ function Header() {
           <div className={cx("nav")} onClick={handleNavOpen}>
             <FontAwesomeIcon icon={faBars} style={{ width: 20 }} />
           </div>
+
           <div className={cx("nav_bar")}>
             <div className={cx("menu_nav_bar", handleNav)}>
               <button className={cx("close-btn")} onClick={handleNavClose}>
