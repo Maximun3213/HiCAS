@@ -21,11 +21,6 @@ function ViThep() {
       .then((item) => {
         setItems(item);
       });
-    // fetch(`${API_URL}/card-prices`)
-    //   .then((res) => res.json())
-    //   .then((card) => {
-    //     setCardPrices(card);
-    //   });
   }, []);
 
   return (
@@ -34,7 +29,6 @@ function ViThep() {
         image="/images/bannerViThep.jpg"
         title="MÔ HÌNH THÔNG TIN 3D KẾT CẤU THÉP
         CHO XÂY DỰNG VÀ CHẾ TẠO"
-        slug="/products/ViThep"
         titleSlug="ViTHEP"
       />
       <TitleSection>{items.title}</TitleSection>
@@ -43,8 +37,6 @@ function ViThep() {
         <div className={cx("video_product")}>
           <iframe
             className={cx("video")}
-            // width="942px"
-            // height="530px"
             src={items.video_link}
             title="YouTube video player"
             frameBorder="0"

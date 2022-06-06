@@ -7,7 +7,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import BannerSlug from "../../src/components/bannerSlug";
 import TitleSection from "../../src/components/titleSection";
 import styles from "./contact.module.scss";
-import Button from "../../src/components/button";
 
 const cx = classNames.bind(styles);
 
@@ -63,7 +62,6 @@ function Contact() {
       <BannerSlug
         image="/images/bannerContact.png"
         title="CHÚNG TÔI LẮNG NGHE Ý KIẾN CỦA BẠN"
-        slug="/contact"
         titleSlug="Liên hệ"
       />
       <TitleSection>Liên hệ với chúng tôi</TitleSection>

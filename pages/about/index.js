@@ -39,7 +39,6 @@ function About() {
       <BannerSlug
         image="/images/bannerAbout.jpg"
         title="Về chúng tôi"
-        slug="/about"
         titleSlug="Về chúng tôi"
       />
       <section>
