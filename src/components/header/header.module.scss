@@ -109,6 +109,8 @@
   align-items: center;
   left: 33%;
   background-color: #fff;
+  -webkit-animation: scale-in-ver-top 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation: scale-in-ver-top 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
 .header_btn {
@@ -146,7 +148,6 @@
   width: 40vw;
   height: 50px;
   padding: 5px 10px;
-  // width: 500px;
   margin: 0px auto;
 }
 
@@ -170,18 +171,6 @@
     font-weight: 800;
     outline: none;
   }
-}
-
-.active_open {
-  display: flex;
-  -webkit-animation: scale-in-ver-top 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-  animation: scale-in-ver-top 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-}
-
-.active_close {
-  display: none;
-  // -webkit-animation: scale-out-ver-top 0.25s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
-  // animation: scale-out-ver-top 0.25s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
 }
 
 .close-btn {
@@ -228,40 +217,6 @@
   }
 }
 
-//Xử lý hiệu ứng search box
-@-webkit-keyframes scale-out-ver-top {
-  0% {
-    -webkit-transform: scaleY(1);
-    transform: scaleY(1);
-    -webkit-transform-origin: 100% 0%;
-    transform-origin: 100% 0%;
-    opacity: 1;
-  }
-  100% {
-    -webkit-transform: scaleY(0);
-    transform: scaleY(0);
-    -webkit-transform-origin: 100% 0%;
-    transform-origin: 100% 0%;
-    opacity: 1;
-  }
-}
-@keyframes scale-out-ver-top {
-  0% {
-    -webkit-transform: scaleY(1);
-    transform: scaleY(1);
-    -webkit-transform-origin: 100% 0%;
-    transform-origin: 100% 0%;
-    opacity: 1;
-  }
-  100% {
-    -webkit-transform: scaleY(0);
-    transform: scaleY(0);
-    -webkit-transform-origin: 100% 0%;
-    transform-origin: 100% 0%;
-    opacity: 1;
-  }
-}
-
 .menu_item > li.active {
   color: var(--primary-color);
 }
@@ -269,12 +224,49 @@
 .active_text_dropdown a {
   color: var(--primary-color);
 }
+
 .nav {
   display: none;
 }
 
-.nav_bar {
-  display: none;
+// Responsive tablet
+
+@-webkit-keyframes scale-in-top {
+  0% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+    -webkit-transform-origin: 50% 0%;
+    transform-origin: 50% 0%;
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-transform-origin: 50% 0%;
+    transform-origin: 50% 0%;
+    opacity: 1;
+  }
+}
+@keyframes scale-in-top {
+  0% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+    -webkit-transform-origin: 50% 0%;
+    transform-origin: 50% 0%;
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-transform-origin: 50% 0%;
+    transform-origin: 50% 0%;
+    opacity: 1;
+  }
+}
+
+.scale-in-top {
+  -webkit-animation: scale-in-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation: scale-in-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
 @media only screen and (max-width: 1024px) {
@@ -291,14 +283,12 @@
     display: none;
   }
   .nav_bar {
-    display: block;
     position: relative;
     z-index: 9999;
-
-    // width: 30%;
+    animation: scale-in-top 0.25s;
     & .menu_nav_bar {
-      top: 34px;
-      left: -200px;
+      top: 25px;
+      left: -180px;
       position: absolute;
       background-color: #fff;
       border-bottom-left-radius: 8px;
@@ -325,14 +315,9 @@
     display: flex;
     justify-content: center;
   }
-  .close-btn {
-    float: right;
-    margin-right: 20px;
-  }
-  .nav_open {
-    display: block;
-  }
 }
+
+// Responsive mobile
 
 @media only screen and (max-width: 500px) {
   .container {
@@ -340,50 +325,8 @@
   }
   .nav_bar {
     & .menu_nav_bar {
-      // top: 38px;
-      left: -280px;
-      position: absolute;
-      background-color: #fff;
-      border-bottom-left-radius: 8px;
-      box-shadow: -7px 9px 14px -3px rgba(108, 108, 108, 0.48);
-    }
-  }
-  .menu_item {
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    width: 300px;
-    height: 20vh;
-  }
-  .menu_item > li:not(:first-child) {
-    margin-left: 0px;
-  }
-
-  .search-box {
-    width: 90%;
-    margin: 0 auto;
-  }
-  .header_action {
-    margin: 15px auto;
-    display: flex;
-    justify-content: center;
-  }
-  .close-btn {
-    float: right;
-    margin-right: 20px;
-  }
-  .nav_open {
-    display: block;
-  }
-  .dropdown_nav {
-    border-radius: var(--card-border-radius);
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    & li a {
-      padding: 8px 30px;
-      color: #000;
-    }
-    & li {
-      padding: 4% 0;
+      top: 35px;
+      left: -260px;
     }
   }
 }

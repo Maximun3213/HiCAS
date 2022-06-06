@@ -1,45 +1,29 @@
-import styles from "./header.module.scss";
-import { useRouter } from "next/router";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useState, useRef } from "react";
 import classNames from "classnames/bind";
 import Link from "next/link";
 import Image from "next/image";
 import {
-  faAngleDown,
   faMagnifyingGlass,
   faXmark,
   faBars,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+import styles from "./header.module.scss";
+import useOnClickOutside from "../../hooks/useComponentVisible";
 import MainRoute from "./menu";
 import Logo from "../../assets/images/logo/logo.png";
 
 const cx = classNames.bind(styles);
 
 function Header() {
-  const [search, setSearch] = useState("active_close");
-  const [handleNav, sethandleNav] = useState("active_close");
+  const ref = useRef();
+  const [isNavOpen, setNavOpen] = useState(false);
+  useOnClickOutside(ref, () => setNavOpen(false));
 
-  const handleSearchOpen = () => {
-    setSearch("active_open");
-  };
-
-  const handleSearchClose = () => {
-    setSearch("active_close");
-  };
-
-  const handleNavOpen = () => {
-    sethandleNav("nav_open");
-  };
-  const handleNavClose = () => {
-    sethandleNav("active_close");
-  };
-
-  const [isActive, setActive] = useState("false");
-  function testChange(x) {
-    setActive(!isActive);
-  }
+  const search = useRef();
+  const [isSeacrhOpen, setSearchOpen] = useState(false);
+  useOnClickOutside(search, () => setSearchOpen(false));
 
   return (
     <header className={cx("wrapper")}>
@@ -50,11 +34,8 @@ function Header() {
           </a>
         </Link>
         <div className={cx("menu")}>
-          <div className={cx("nav_bar_res")}>
-            <MainRoute />
-          </div>
-          <div className={cx("menu_action")}>
-            <div className={cx("search-wapper", search)}>
+          {isSeacrhOpen ? (
+            <div className={cx("search-wapper")}>
               <div className={cx("search-box")}>
                 <input
                   type="text"
@@ -70,54 +51,80 @@ function Header() {
                   />
                 </a>
               </div>
-              <button className={cx("close-btn")} onClick={handleSearchClose}>
+              <button
+                className={cx("close-btn")}
+                onClick={() => setSearchOpen(false)}
+              >
                 <FontAwesomeIcon icon={faXmark} style={{ width: 20 }} />
               </button>
             </div>
-            <button className={cx("btn_search")} onClick={handleSearchOpen}>
-              <FontAwesomeIcon icon={faMagnifyingGlass} style={{ width: 20 }} />
-            </button>
-            <div className={cx("header_line")}></div>
-            <select name="" id="" className={cx("header_select")}>
-              <option value="VI">VI</option>
-              <option value="EN">EN</option>
-            </select>
-            <button className={cx("btn", "header_btn")}>Liên hệ</button>
-          </div>
-          <div className={cx("nav")} onClick={handleNavOpen}>
-            <FontAwesomeIcon icon={faBars} style={{ width: 20 }} />
-          </div>
-
-          <div className={cx("nav_bar")}>
-            <div className={cx("menu_nav_bar", handleNav)}>
-              <button className={cx("close-btn")} onClick={handleNavClose}>
-                <FontAwesomeIcon icon={faXmark} style={{ width: 20 }} />
-              </button>
-              <div className={cx("search-box")}>
-                <input
-                  type="text"
-                  name=""
-                  id=""
-                  placeholder="Type to search"
-                  className={cx("search-txt")}
-                />
-                <a href="" className={cx("search-btn")}>
+          ) : (
+            <Fragment ref={search}>
+              <div className={cx("nav_bar_res")}>
+                <MainRoute />
+              </div>
+              <div className={cx("menu_action")}>
+                <button
+                  className={cx("btn_search")}
+                  onClick={() => setSearchOpen(true)}
+                >
                   <FontAwesomeIcon
                     icon={faMagnifyingGlass}
                     style={{ width: 20 }}
                   />
-                </a>
-              </div>
-              <MainRoute />
-              <div className={cx("header_action")}>
+                </button>
+                <div className={cx("header_line")}></div>
                 <select name="" id="" className={cx("header_select")}>
                   <option value="VI">VI</option>
                   <option value="EN">EN</option>
                 </select>
-                <button className={cx("btn", "header_btn")}>Liên hệ</button>
+                <button className={cx("btn", "header_btn")}>
+                  <Link href="/contact">Liên hệ</Link>
+                </button>
               </div>
+            </Fragment>
+          )}
+
+          {isNavOpen ? (
+            <>
+              <div className={cx("nav_bar")} ref={ref}>
+                <div className={cx("menu_nav_bar")}>
+                  <div className={cx("search-box")}>
+                    <input
+                      type="text"
+                      name=""
+                      id=""
+                      placeholder="Type to search"
+                      className={cx("search-txt")}
+                    />
+                    <a href="" className={cx("search-btn")}>
+                      <FontAwesomeIcon
+                        icon={faMagnifyingGlass}
+                        style={{ width: 20 }}
+                      />
+                    </a>
+                  </div>
+                  <MainRoute />
+                  <div className={cx("header_action")}>
+                    <select name="" id="" className={cx("header_select")}>
+                      <option value="VI">VI</option>
+                      <option value="EN">EN</option>
+                    </select>
+                    <button className={cx("btn", "header_btn")}>
+                      <Link href="/contact">Liên hệ</Link>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div className={cx("nav")} onClick={() => setNavOpen(false)}>
+                <FontAwesomeIcon icon={faXmark} style={{ width: 20 }} />
+              </div>
+            </>
+          ) : (
+            <div className={cx("nav")} onClick={() => setNavOpen(true)}>
+              <FontAwesomeIcon icon={faBars} style={{ width: 20 }} />
             </div>
-          </div>
+          )}
         </div>
       </div>
     </header>
