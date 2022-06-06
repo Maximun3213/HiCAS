@@ -55,7 +55,6 @@ function MainRoute() {
                       : ""
                   }
                 >
-                  {console.log(router.pathname)}
                   <Link href={value.link}>
                     <a>{value.title}</a>
                   </Link>

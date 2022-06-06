@@ -59,7 +59,7 @@ function Header() {
               </button>
             </div>
           ) : (
-            <Fragment ref={search}>
+            <div ref={search} style={{ display: "flex", alignItems: "center" }}>
               <div className={cx("nav_bar_res")}>
                 <MainRoute />
               </div>
@@ -82,7 +82,7 @@ function Header() {
                   <Link href="/contact">Liên hệ</Link>
                 </button>
               </div>
-            </Fragment>
+            </div>
           )}
 
           {isNavOpen ? (
