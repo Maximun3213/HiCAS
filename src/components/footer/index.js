@@ -3,10 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState, useEffect, forwardRef } from "react";
 
 import styles from "./footer.module.scss";
 import logoFooter from "../../assets/images/logo/logo_footer.png";
-import { useState, useEffect } from "react";
 
 const cx = classNames.bind(styles);
 
@@ -69,7 +69,7 @@ function Footer() {
                     <Link href={data.url}>
                       <Image
                         src={API_URL + data.Image.url}
-                        alt="facebook"
+                        alt="icon"
                         width={data.Image.width}
                         height={data.Image.height}
                       />

@@ -42,7 +42,7 @@ function CardTech() {
         ))}
       </div>
       <div className={cx("card_btn")}>
-        <Button width="170px" href="" borderRadius="18px" mainBtn="true">
+        <Button width="170px" borderRadius="18px" mainBtn="true" link="">
           Xem thêm
         </Button>
       </div>
