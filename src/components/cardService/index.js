@@ -64,22 +64,12 @@ var settings = {
   ],
 };
 
-function CardService() {
-  const [major, setMajor] = useState([]);
+function CardService({ cardService }) {
   const API_URL = process.env.API_URL;
-  const router = useRouter();
-  const [locale, setLocale] = useState(router.locale);
-  useEffect(() => {
-    fetch(`${API_URL}/majors?_locale=` + locale)
-      .then((res) => res.json())
-      .then((majors) => {
-        setMajor(majors);
-      });
-  }, []);
   return (
     <div className={cx("container")}>
       <Slider {...settings}>
-        {major.map((value) => (
+        {cardService.map((value) => (
           <div className="" key={value.id}>
             <div className={cx("card")}>
               <div

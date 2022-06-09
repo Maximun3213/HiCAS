@@ -1,15 +1,3 @@
-.container {
-  margin: 0 var(--default-margin-container);
-}
-
-.card_wapper {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  // vertical-align: middle;
-}
-
 .card {
   background: #f9f8f8;
   height: 400px;
@@ -65,18 +53,12 @@
 }
 
 @media only screen and (max-width: 1024px) {
-  .container {
-    margin: 3% var(---margin-container-table);
-  }
   .card {
     width: 260px;
   }
 }
 
 @media only screen and (max-width: 500px) {
-  .container {
-    margin: 10% var(---margin-container-phone);
-  }
   .card {
     width: 100%;
     margin-bottom: 5%;

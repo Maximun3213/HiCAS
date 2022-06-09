@@ -1,18 +1,17 @@
 import React from "react";
 import { Fragment, useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import Image from "next/image";
 import Slider from "react-slick";
 import classNames from "classnames/bind";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Link from "next/link";
 
 import BannerBottom from "../src/components/bannerBottom";
 import styles from "../styles/Home.module.css";
 import Button from "../src/components/button";
 import TitleSection from "../src/components/titleSection";
 
+import Header from "../src/components/header";
 import CardService from "../src/components/cardService";
 import CardProduct from "../src/components/cardProduct";
 import CardTech from "../src/components/cardTech";
@@ -22,19 +21,16 @@ import CardNews from "../src/components/cardNews";
 
 const cx = classNames.bind(styles);
 
-export default function Home() {
+export default function Home({
+  banner,
+  header,
+  bannerBottom,
+  cardService,
+  product,
+}) {
   const router = useRouter();
-  const [banners, setBanners] = useState([]);
-  const [locale, setLocale] = useState(router.locale);
+  console.log(product);
   const API_URL = process.env.API_URL;
-
-  useEffect(() => {
-    fetch(`${API_URL}/banners?_locale=` + locale)
-      .then((res) => res.json())
-      .then((banner) => {
-        setBanners(banner);
-      });
-  }, [locale]);
   var settings = {
     // dots: true,
     infinite: true,
@@ -47,8 +43,9 @@ export default function Home() {
 
   return (
     <Fragment>
+      <Header header={header} />
       <Slider {...settings}>
-        {banners.map((item) => (
+        {banner.map((item) => (
           <div key={item.id} className={cx("banner")}>
             <div
               style={{
@@ -122,7 +119,7 @@ export default function Home() {
           </div>
         ))}
       </Slider>
-      <BannerBottom />
+      <BannerBottom bannerBottom={bannerBottom} />
       <section>
         {router.locale === "en" ? (
           <>
@@ -147,7 +144,7 @@ export default function Home() {
             </p>
           </>
         )}
-        <CardService />
+        <CardService cardService={cardService} />
       </section>
       <section className={cx("typical_product")}>
         {router.locale === "en" ? (
@@ -155,7 +152,20 @@ export default function Home() {
         ) : (
           <TitleSection>Sản phẩm tiêu biểu</TitleSection>
         )}
-        <CardProduct />
+        <div className={cx("container")}>
+          <div className={cx("cardProduct_wapper")}>
+            {product.map((value) => (
+              <CardProduct
+                key={value.id}
+                Img={value.Image.url}
+                Icon={value.icon.url}
+                titleBtn={value.title_button}
+                title={value.title}
+                decs={value.decs}
+              />
+            ))}
+          </div>
+        </div>
       </section>
       <section className={cx("typical_tech")}>
         {router.locale === "en" ? (
@@ -192,4 +202,78 @@ export default function Home() {
       </section>
     </Fragment>
   );
+}
+
+export async function getServerSideProps(context) {
+  const API_URL = process.env.API_URL;
+  const { locale } = context;
+
+  //Fetch API Banner
+  let translationBanner = undefined;
+  const bannersRes = await fetch(`${API_URL}/banners`);
+  const banners = await bannersRes.json();
+  if (locale === "en") {
+    const translationBannerRes = await fetch(
+      `${API_URL}/banners?_locale=` + locale
+    );
+    translationBanner = await translationBannerRes.json();
+  }
+
+  //Fetch API Header menu
+  let translationHeader = undefined;
+  const HeaderRes = await fetch(`${API_URL}/headers`);
+  const header = await HeaderRes.json();
+  if (locale === "en") {
+    const translationHeaderRes = await fetch(
+      `${API_URL}/headers?_locale=` + locale
+    );
+    translationHeader = await translationHeaderRes.json();
+  }
+
+  //Fetch API Banner Bottom
+  let translationBannerBottom = undefined;
+  const bannerBottomRes = await fetch(`${API_URL}/banner-bottom`);
+  const bannerBottom = await bannerBottomRes.json();
+  if (locale === "en") {
+    const translationBannerBottomRes = await fetch(
+      `${API_URL}/banner-bottom?_locale=` + locale
+    );
+    translationBannerBottom = await translationBannerBottomRes.json();
+  }
+
+  //Fetch API Card Service
+  let translationCardService = undefined;
+  const cardServiceRes = await fetch(`${API_URL}/majors`);
+  const cardService = await cardServiceRes.json();
+  if (locale === "en") {
+    const translationCardServiceRes = await fetch(
+      `${API_URL}/majors?_locale=` + locale
+    );
+    translationCardService = await translationCardServiceRes.json();
+  }
+
+  //Fetch API Card Product
+  let translationCardProduct = undefined;
+  const cardProductRes = await fetch(`${API_URL}/typical-products`);
+  const cardProduct = await cardProductRes.json();
+  if (locale === "en") {
+    const translationCardProductRes = await fetch(
+      `${API_URL}/typical-products?_locale=` + locale
+    );
+    translationCardProduct = await translationCardProductRes.json();
+  }
+
+  return {
+    props: {
+      banner: translationBanner ? translationBanner : banners,
+      header: translationHeader ? translationHeader : header,
+      bannerBottom: translationBannerBottom
+        ? translationBannerBottom
+        : bannerBottom,
+      cardService: translationCardService
+        ? translationCardService
+        : cardService,
+      product: translationCardProduct ? translationCardProduct : cardProduct,
+    },
+  };
 }

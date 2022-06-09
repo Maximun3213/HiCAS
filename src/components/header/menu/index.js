@@ -9,24 +9,12 @@ import styles from "../header.module.scss";
 
 const cx = classNames.bind(styles);
 
-function MainRoute() {
-  const API_URL = process.env.API_URL;
-  const [items, setItems] = useState([]);
-
+function MainRoute({ header }) {
   const router = useRouter();
 
-  const [locale, setLocale] = useState(router.locale);
-
-  useEffect(() => {
-    fetch(`${API_URL}/headers?_locale=` + locale)
-      .then((res) => res.json())
-      .then((items) => {
-        setItems(items);
-      });
-  }, []);
   return (
     <ul className={cx("menu_item")}>
-      {items.map((item) => (
+      {header.map((item) => (
         <li
           key={item.id}
           className={

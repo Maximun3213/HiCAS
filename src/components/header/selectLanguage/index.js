@@ -1,6 +1,7 @@
 import classNames from "classnames/bind";
 import useRouter from "next/router";
 import styles from "./select.module.scss";
+import Link from "next/link";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -18,8 +19,12 @@ function Language() {
         />
       </div>
       <div className={cx("option")}>
-        <a href={"http://localhost:3000" + useRouter.asPath}>VI</a>
-        <a href={"http://localhost:3000/en" + useRouter.asPath}>EN</a>
+        <Link href={useRouter.asPath} locale="vi-VN">
+          <a>VI</a>
+        </Link>
+        <Link href={useRouter.asPath} locale="en">
+          <a>EN</a>
+        </Link>
       </div>
     </div>
   );

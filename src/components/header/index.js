@@ -18,7 +18,7 @@ import Logo from "../../assets/images/logo/logo.png";
 
 const cx = classNames.bind(styles);
 
-function Header() {
+function Header({ header }) {
   const ref = useRef();
   const [isNavOpen, setNavOpen] = useState(false);
   useOnClickOutside(ref, () => setNavOpen(false));
@@ -32,7 +32,6 @@ function Header() {
   useEffect(() => {
     setIsSSR(false);
   }, []);
-
   const { locale } = useRouter();
 
   return (
@@ -71,7 +70,7 @@ function Header() {
           ) : (
             <div ref={search} style={{ display: "flex", alignItems: "center" }}>
               <div className={cx("nav_bar_res")}>
-                <MainRoute />
+                <MainRoute header={header} />
               </div>
               <div className={cx("menu_action")}>
                 <button
@@ -115,7 +114,7 @@ function Header() {
                       />
                     </a>
                   </div>
-                  <MainRoute />
+                  <MainRoute header={header} />
                   <div className={cx("header_action")}>
                     <Language />
                     <button className={cx("btn", "header_btn")}>
