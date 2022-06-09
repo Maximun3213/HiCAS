@@ -4,6 +4,7 @@ import Link from "next/link";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState, useEffect, forwardRef } from "react";
+import { useRouter } from "next/router";
 
 import styles from "./footer.module.scss";
 import logoFooter from "../../assets/images/logo/logo_footer.png";
@@ -14,6 +15,8 @@ function Footer() {
   const [social, setSocial] = useState([]);
   const [itemLink, setItemLink] = useState([]);
   const API_URL = process.env.API_URL;
+  const router = useRouter();
+  const [locale, setLocale] = useState(router.locale);
 
   const [email, setEmail] = useState("");
 
@@ -23,7 +26,7 @@ function Footer() {
       .then((social) => {
         setSocial(social);
       });
-    fetch(`${API_URL}/footers`)
+    fetch(`${API_URL}/footers?_locale=` + locale)
       .then((res) => res.json())
       .then((footer) => {
         setItemLink(footer);
@@ -93,21 +96,49 @@ function Footer() {
               </div>
             ))}
             <div className={cx("footer_item")}>
-              <h4>Đăng ký nhận thông tin</h4>
-              <p className={cx("footer_menu")}>
-                Send me updates from Hicas Software
-              </p>
-              <form action="" className={cx("form")}>
-                <input
-                  type="email"
-                  placeholder="Enter your email address"
-                  onChange={(e) => setEmail(e.target.value)}
-                  value={email}
-                />
-                <button type="button" onClick={() => addEmail()}>
-                  <FontAwesomeIcon icon={faPaperPlane} style={{ width: 25 }} />
-                </button>
-              </form>
+              {router.locale === "en" ? (
+                <>
+                  <h4>Sign up get information</h4>
+                  <p className={cx("footer_menu")}>
+                    Send me updates from Hicas Software
+                  </p>
+                  <form action="" className={cx("form")}>
+                    <input
+                      type="email"
+                      placeholder="Enter your email address"
+                      onChange={(e) => setEmail(e.target.value)}
+                      value={email}
+                    />
+                    <button type="button" onClick={() => addEmail()}>
+                      <FontAwesomeIcon
+                        icon={faPaperPlane}
+                        style={{ width: 25 }}
+                      />
+                    </button>
+                  </form>
+                </>
+              ) : (
+                <>
+                  <h4>Đăng ký nhận thông tin</h4>
+                  <p className={cx("footer_menu")}>
+                    Gửi cho tôi các bản cập nhật từ Phần mềm Hicas
+                  </p>
+                  <form action="" className={cx("form")}>
+                    <input
+                      type="email"
+                      placeholder="Hãy nhập email của bạn"
+                      onChange={(e) => setEmail(e.target.value)}
+                      value={email}
+                    />
+                    <button type="button" onClick={() => addEmail()}>
+                      <FontAwesomeIcon
+                        icon={faPaperPlane}
+                        style={{ width: 25 }}
+                      />
+                    </button>
+                  </form>
+                </>
+              )}
             </div>
           </div>
         </div>

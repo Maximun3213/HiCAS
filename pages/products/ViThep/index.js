@@ -2,6 +2,7 @@ import { Fragment, useEffect, useState } from "react";
 import classNames from "classnames/bind";
 import Image from "next/image";
 import ReactMarkdown from "react-markdown";
+import { useRouter } from "next/router";
 
 import BannerSlug from "../../../src/components/bannerSlug";
 import TitleSection from "../../../src/components/titleSection";
@@ -13,24 +14,41 @@ const cx = classNames.bind(styles);
 
 function ViThep() {
   const [items, setItems] = useState({});
-
+  const [bannerViTHEP, setBannerViTHEP] = useState([]);
+  const router = useRouter();
+  const [locale, setLocale] = useState(router.locale);
   const API_URL = process.env.API_URL;
   useEffect(() => {
-    fetch(`${API_URL}/product-vi-thep`)
+    fetch(`${API_URL}/product-vi-thep?_locale=` + locale)
       .then((res) => res.json())
       .then((item) => {
         setItems(item);
+      });
+    fetch(`${API_URL}/trial-vithep-banners?_locale=` + locale)
+      .then((res) => res.json())
+      .then((banner) => {
+        setBannerViTHEP(banner);
       });
   }, []);
 
   return (
     <Fragment>
-      <BannerSlug
-        image="/images/bannerViThep.jpg"
-        title="MÔ HÌNH THÔNG TIN 3D KẾT CẤU THÉP
-        CHO XÂY DỰNG VÀ CHẾ TẠO"
-        titleSlug="ViTHEP"
-      />
+      {router.locale === "en" ? (
+        <BannerSlug
+          image="/images/bannerViThep.jpg"
+          title="STEEL Structural 3D INFORMATION MODEL
+        FOR CONSTRUCTION AND MANUFACTURING"
+          titleSlug="ViTHEP"
+        />
+      ) : (
+        <BannerSlug
+          image="/images/bannerViThep.jpg"
+          title="MÔ HÌNH THÔNG TIN 3D KẾT CẤU THÉP
+      CHO XÂY DỰNG VÀ CHẾ TẠO"
+          titleSlug="ViTHEP"
+        />
+      )}
+
       <TitleSection>{items.title}</TitleSection>
       <div className={cx("container")}>
         <p className={cx("banner_content")}>{items.decs}</p>
@@ -45,7 +63,11 @@ function ViThep() {
           ></iframe>
         </div>
       </div>
-      <TitleSection>Vì sao chọn ViTHEP ?</TitleSection>
+      {router.locale === "en" ? (
+        <TitleSection>Why choose ViTHEP?</TitleSection>
+      ) : (
+        <TitleSection>Vì sao chọn ViTHEP ?</TitleSection>
+      )}
       <div className={cx("container")}>
         <div className={cx("card_wapper")}>
           <div
@@ -73,7 +95,12 @@ function ViThep() {
         </div>
       </div>
       <section className={cx("background")}>
-        <TitleSection>Chi phí tối ưu</TitleSection>
+        {router.locale === "en" ? (
+          <TitleSection>Optimal cost</TitleSection>
+        ) : (
+          <TitleSection>Chi phí tối ưu</TitleSection>
+        )}
+
         <div className={cx("container")}>
           <div className={cx("card_price_wapper")}>
             <CardPrice />
@@ -81,25 +108,26 @@ function ViThep() {
         </div>
       </section>
       <section>
-        <div
-          className={cx("banner_bottom")}
-          style={{ backgroundImage: "url(/images/bannerBottomViThep.jpg)" }}
-        >
-          <div className={cx("banner_content")}>
-            <h3>ViTHEP</h3>
-            <b>Bởi người việt cho người việt</b>
-            <p>Trải nghiệm miễn phí 30 ngày</p>
-            <Button
-              mainBtn="true"
-              width="200px"
-              borderRadius="20px"
-              margin="5% 0"
-              link="/contact"
-            >
-              Trải nghiệm ngay
-            </Button>
+        {bannerViTHEP.map((value) => (
+          <div
+            className={cx("banner_bottom")}
+            style={{ backgroundImage: `url(${API_URL + value.img.url})` }}
+            key={value.id}
+          >
+            <div className={cx("banner_content")}>
+              <ReactMarkdown>{value.title}</ReactMarkdown>
+              <Button
+                mainBtn="true"
+                width="200px"
+                borderRadius="20px"
+                margin="5% 0"
+                link={value.link}
+              >
+                {value.title_button}
+              </Button>
+            </div>
           </div>
-        </div>
+        ))}
       </section>
     </Fragment>
   );

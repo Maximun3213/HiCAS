@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import classNames from "classnames/bind";
+import { useRouter } from "next/router";
 
 import styles from "./cardTech.module.scss";
 import Button from "../button";
@@ -11,6 +12,9 @@ const cx = classNames.bind(styles);
 function CardTech() {
   const [cards, setCards] = useState([]);
   const API_URL = process.env.API_URL;
+
+  const router = useRouter();
+  const [locale, setLocale] = useState(router.locale);
 
   useEffect(() => {
     fetch(`${API_URL}/card-teches`)
@@ -42,9 +46,15 @@ function CardTech() {
         ))}
       </div>
       <div className={cx("card_btn")}>
-        <Button width="170px" borderRadius="18px" mainBtn="true" link="">
-          Xem thêm
-        </Button>
+        {router.locale === "en" ? (
+          <Button width="170px" borderRadius="18px" mainBtn="true" link="">
+            See more
+          </Button>
+        ) : (
+          <Button width="170px" borderRadius="18px" mainBtn="true" link="">
+            Xem thêm
+          </Button>
+        )}
       </div>
     </div>
   );

@@ -3,6 +3,8 @@ import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Slider from "react-slick";
 import classNames from "classnames/bind";
+import { useRouter } from "next/router";
+
 import styles from "./cardService.module.scss";
 import Button from "../button";
 const cx = classNames.bind(styles);
@@ -65,8 +67,10 @@ var settings = {
 function CardService() {
   const [major, setMajor] = useState([]);
   const API_URL = process.env.API_URL;
+  const router = useRouter();
+  const [locale, setLocale] = useState(router.locale);
   useEffect(() => {
-    fetch(`${API_URL}/majors`)
+    fetch(`${API_URL}/majors?_locale=` + locale)
       .then((res) => res.json())
       .then((majors) => {
         setMajor(majors);
@@ -102,7 +106,7 @@ function CardService() {
                     borderRadius="20px"
                     margin="4% auto"
                   >
-                    Xem chi tiết
+                    {value.title_button}
                   </Button>
                 </div>
               </div>

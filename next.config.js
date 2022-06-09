@@ -1,22 +1,26 @@
 /** @type {import('next').NextConfig} */
 require("dotenv").config();
 const withImages = require("next-images");
-const webpack = require("webpack");
-const nextConfig = {
-  reactStrictMode: true,
-  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
-    config.plugins.push(
-      new webpack.ProvidePlugin({
-        $: "jquery",
-        jQuery: "jquery",
-        "window.jQuery": "jquery",
-      })
-    );
-    return config;
-  },
-};
+// const webpack = require("webpack");
+// const nextConfig = {
+//   reactStrictMode: true,
+//   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
+//     config.plugins.push(
+//       new webpack.ProvidePlugin({
+//         $: "jquery",
+//         jQuery: "jquery",
+//         "window.jQuery": "jquery",
+//       })
+//     );
+//     return config;
+//   },
+// };
 
 (module.exports = {
+  i18n: {
+    locales: ["vi-VN", "en"],
+    defaultLocale: "vi-VN",
+  },
   env: {
     API_URL: process.env.API_URL,
     IMAGES_DOMAIN: process.env.IMAGES_DOMAIN,

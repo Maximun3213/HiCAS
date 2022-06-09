@@ -13,14 +13,17 @@ function MainRoute() {
   const API_URL = process.env.API_URL;
   const [items, setItems] = useState([]);
 
+  const router = useRouter();
+
+  const [locale, setLocale] = useState(router.locale);
+
   useEffect(() => {
-    fetch(`${API_URL}/headers`)
+    fetch(`${API_URL}/headers?_locale=` + locale)
       .then((res) => res.json())
       .then((items) => {
         setItems(items);
       });
   }, []);
-  const router = useRouter();
   return (
     <ul className={cx("menu_item")}>
       {items.map((item) => (

@@ -3,6 +3,7 @@ import classNames from "classnames/bind";
 import ReactMarkdown from "react-markdown";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useRouter } from "next/router";
 
 import BannerSlug from "../../src/components/bannerSlug";
 import TitleSection from "../../src/components/titleSection";
@@ -14,13 +15,16 @@ function Contact() {
   const [address, setAddress] = useState([]);
   const API_URL = process.env.API_URL;
 
+  const router = useRouter();
+  const [locale, setLocale] = useState(router.locale);
+
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [content, setContent] = useState("");
 
   useEffect(() => {
-    fetch(`${API_URL}/companies`)
+    fetch(`${API_URL}/companies?_locale=` + locale)
       .then((res) => res.json())
       .then((item) => {
         setAddress(item);
@@ -47,29 +51,50 @@ function Contact() {
     await add.json();
 
     if (add.status === 200) {
-      alert("Gửi yêu cầu hổ trợ thành công");
+      router.locale === "en"
+        ? alert("Support request submitted successfully")
+        : alert("Gửi yêu cầu hổ trợ thành công");
+
       setName("");
       setPhone("");
       setEmail("");
       setContent("");
     } else {
-      alert("Gửi yêu hổ trợ không thành công");
+      router.locale === "en"
+        ? alert("Sending support request failed")
+        : alert("Gửi yêu hổ trợ không thành công");
     }
   }
 
   return (
     <Fragment>
-      <BannerSlug
-        image="/images/bannerContact.png"
-        title="CHÚNG TÔI LẮNG NGHE Ý KIẾN CỦA BẠN"
-        titleSlug="Liên hệ"
-      />
-      <TitleSection>Liên hệ với chúng tôi</TitleSection>
+      {router.locale === "en" ? (
+        <>
+          <BannerSlug
+            image="/images/bannerContact.png"
+            title="WE LISTEN TO YOUR OPINION"
+          />
+          <TitleSection>Contact us</TitleSection>
+        </>
+      ) : (
+        <>
+          <BannerSlug
+            image="/images/bannerContact.png"
+            title="CHÚNG TÔI LẮNG NGHE Ý KIẾN CỦA BẠN"
+          />
+          <TitleSection>Liên hệ với chúng tôi</TitleSection>
+        </>
+      )}
       <div className={cx("container")}>
         <div className={cx("contact_wapper")}>
           <div className={cx("contact_col")}>
             <div className={cx("address")}>
-              <h3>CÔNG TY TNHH PHẦN MỀM HICAS</h3>
+              {router.locale === "en" ? (
+                <h3>HiCAS SOFTWARE COMPANY</h3>
+              ) : (
+                <h3>CÔNG TY TNHH PHẦN MỀM HICAS</h3>
+              )}
+
               {address.map((value) => (
                 <div className={cx("address_item")} key={value.id}>
                   <b>{value.Name}</b>
@@ -81,45 +106,91 @@ function Contact() {
               ))}
             </div>
             <div className={cx("contact")}>
-              <h3>YÊU CẦU HỖ TRỢ TỪ HICAS</h3>
-              <form action="" className={cx("form")}>
-                <input
-                  type="text"
-                  placeholder="Họ tên"
-                  onChange={(e) => setName(e.target.value)}
-                  value={name}
-                />
-                <div className={cx("form_inline")}>
-                  <input
-                    type="text"
-                    placeholder="Điện thoại"
-                    onChange={(e) => setPhone(e.target.value)}
-                    value={phone}
-                  />
-                  <input
-                    type="Email"
-                    placeholder="Email"
-                    onChange={(e) => setEmail(e.target.value)}
-                    value={email}
-                  />
-                </div>
-                <textarea
-                  name=""
-                  id=""
-                  cols="30"
-                  rows="10"
-                  placeholder="Nội dung"
-                  onChange={(e) => setContent(e.target.value)}
-                  value={content}
-                ></textarea>
-                <button type="button" onClick={() => addMessage()}>
-                  <FontAwesomeIcon
-                    icon={faAngleRight}
-                    style={{ width: 6, marginRight: 10 }}
-                  />
-                  Gửi thông tin
-                </button>
-              </form>
+              {router.locale === "en" ? (
+                <>
+                  <h3>REQUEST SUPPORT FROM HICAS</h3>
+                  <form action="" className={cx("form")}>
+                    <input
+                      type="text"
+                      placeholder="Name"
+                      onChange={(e) => setName(e.target.value)}
+                      value={name}
+                    />
+                    <div className={cx("form_inline")}>
+                      <input
+                        type="text"
+                        placeholder="Phone number"
+                        onChange={(e) => setPhone(e.target.value)}
+                        value={phone}
+                      />
+                      <input
+                        type="Email"
+                        placeholder="Email"
+                        onChange={(e) => setEmail(e.target.value)}
+                        value={email}
+                      />
+                    </div>
+                    <textarea
+                      name=""
+                      id=""
+                      cols="30"
+                      rows="10"
+                      placeholder="Content"
+                      onChange={(e) => setContent(e.target.value)}
+                      value={content}
+                    ></textarea>
+                    <button type="button" onClick={() => addMessage()}>
+                      <FontAwesomeIcon
+                        icon={faAngleRight}
+                        style={{ width: 6, marginRight: 10 }}
+                      />
+                      Send information
+                    </button>
+                  </form>
+                </>
+              ) : (
+                <>
+                  <h3>YÊU CẦU HỖ TRỢ TỪ HICAS</h3>
+                  <form action="" className={cx("form")}>
+                    <input
+                      type="text"
+                      placeholder="Họ tên"
+                      onChange={(e) => setName(e.target.value)}
+                      value={name}
+                    />
+                    <div className={cx("form_inline")}>
+                      <input
+                        type="text"
+                        placeholder="Điện thoại"
+                        onChange={(e) => setPhone(e.target.value)}
+                        value={phone}
+                      />
+                      <input
+                        type="Email"
+                        placeholder="Email"
+                        onChange={(e) => setEmail(e.target.value)}
+                        value={email}
+                      />
+                    </div>
+                    <textarea
+                      name=""
+                      id=""
+                      cols="30"
+                      rows="10"
+                      placeholder="Nội dung"
+                      onChange={(e) => setContent(e.target.value)}
+                      value={content}
+                    ></textarea>
+                    <button type="button" onClick={() => addMessage()}>
+                      <FontAwesomeIcon
+                        icon={faAngleRight}
+                        style={{ width: 6, marginRight: 10 }}
+                      />
+                      Gửi thông tin
+                    </button>
+                  </form>
+                </>
+              )}
             </div>
           </div>
           <div className={cx("contact_col")}>

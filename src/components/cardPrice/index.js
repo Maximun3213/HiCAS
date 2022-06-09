@@ -1,4 +1,5 @@
 import classNames from "classnames/bind";
+import { useRouter } from "next/router";
 
 import { faCheck, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,10 +11,11 @@ const cx = classNames.bind(styles);
 
 function CardPrice() {
   const [listFunction, setListFunction] = useState([]);
-
   const API_URL = process.env.API_URL;
+  const router = useRouter();
+  const [locale, setLocale] = useState(router.locale);
   useEffect(() => {
-    fetch(`${API_URL}/card-prices`)
+    fetch(`${API_URL}/card-prices?_locale=` + locale)
       .then((res) => res.json())
       .then((list) => {
         setListFunction(list);
@@ -61,7 +63,7 @@ function CardPrice() {
               mainBtn="true"
               link={value.link}
             >
-              Mua ngay
+              {value.title_button}
             </Button>
           </div>
         </div>

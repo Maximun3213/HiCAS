@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import Link from "next/link";
 import { faNewspaper, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,8 +11,11 @@ function BannerBottom() {
   const [banner, setBanner] = useState({});
   const API_URL = process.env.API_URL;
 
+  const router = useRouter();
+  const [locale, setLocale] = useState(router.locale);
+
   useEffect(() => {
-    fetch(`${API_URL}/banner-bottom`)
+    fetch(`${API_URL}/banner-bottom?_locale=` + locale)
       .then((res) => res.json())
       .then((banner) => {
         setBanner(banner);
@@ -28,14 +32,10 @@ function BannerBottom() {
           <Link href="https://hicas.vn/">
             <a className={cx("banner_title")}>{banner.title}</a>
           </Link>
-          {/* {banner.map((banner) => (
-        ))} */}
           <FontAwesomeIcon
             icon={faAngleRight}
             style={{ width: 10, color: "#fff" }}
           />
-          {/* <div className={cx("link_icon")}>
-          </div> */}
         </div>
       </div>
     </div>

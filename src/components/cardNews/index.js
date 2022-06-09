@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import classNames from "classnames/bind";
+import { useRouter } from "next/router";
 
 import styles from "./cardNews.module.scss";
 import Button from "../button";
@@ -11,8 +12,10 @@ const cx = classNames.bind(styles);
 function CardNews() {
   const [cards, setCards] = useState([]);
   const API_URL = process.env.API_URL;
+  const router = useRouter();
+  const [locale, setLocale] = useState(router.locale);
   useEffect(() => {
-    fetch(`${API_URL}/news-cards`)
+    fetch(`${API_URL}/news-cards?_locale=` + locale)
       .then((res) => res.json())
       .then((card) => {
         setCards(card);
@@ -48,9 +51,15 @@ function CardNews() {
           ))}
       </div>
       <div className={cx("card_btn")}>
-        <Button width="170px" href="" borderRadius="18px" mainBtn="true">
-          Xem thêm
-        </Button>
+        {router.locale === "en" ? (
+          <Button width="170px" href="" borderRadius="18px" mainBtn="true">
+            See more
+          </Button>
+        ) : (
+          <Button width="170px" href="" borderRadius="18px" mainBtn="true">
+            Xem thêm
+          </Button>
+        )}
       </div>
     </div>
   );

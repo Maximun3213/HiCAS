@@ -18,12 +18,18 @@ function BannerSlug({ image, title, titleSlug }) {
         <div className={cx("container")}>
           <h2>{title}</h2>
           <p>
-            <Link href="/">
-              <a>Trang chủ</a>
-            </Link>
-            /
+            {router.locale === "en" ? (
+              <Link href="/">
+                <a>Home</a>
+              </Link>
+            ) : (
+              <Link href="/">
+                <a>Trang chủ</a>
+              </Link>
+            )}
+
             <Link href={router.pathname}>
-              <a>{titleSlug}</a>
+              <a>{router.pathname}</a>
             </Link>
           </p>
         </div>

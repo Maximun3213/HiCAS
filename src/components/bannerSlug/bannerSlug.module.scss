@@ -42,9 +42,21 @@
   }
 }
 
+@media only screen and (max-width: 1300px) {
+  .container {
+    margin: 0 var(---margin-container-table);
+  }
+
+  .banner_content {
+    & h2 {
+      font-size: 3.5rem;
+    }
+  }
+}
+
 @media only screen and (max-width: 500px) {
   .container {
-    margin: 0 var(--default-margin-phone);
+    margin: 0 var(---margin-container-phone);
   }
 
   .banner_content {

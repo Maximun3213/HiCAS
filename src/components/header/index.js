@@ -1,4 +1,4 @@
-import { Fragment, useState, useRef } from "react";
+import { Fragment, useState, useRef, useEffect } from "react";
 import classNames from "classnames/bind";
 import Link from "next/link";
 import Image from "next/image";
@@ -8,10 +8,12 @@ import {
   faBars,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useRouter } from "next/router";
 
 import styles from "./header.module.scss";
 import useOnClickOutside from "../../hooks/useComponentVisible";
 import MainRoute from "./menu";
+import Language from "./selectLanguage";
 import Logo from "../../assets/images/logo/logo.png";
 
 const cx = classNames.bind(styles);
@@ -24,6 +26,14 @@ function Header() {
   const search = useRef();
   const [isSeacrhOpen, setSearchOpen] = useState(false);
   useOnClickOutside(search, () => setSearchOpen(false));
+
+  const [isSSR, setIsSSR] = useState(true);
+
+  useEffect(() => {
+    setIsSSR(false);
+  }, []);
+
+  const { locale } = useRouter();
 
   return (
     <header className={cx("wrapper")}>
@@ -74,12 +84,13 @@ function Header() {
                   />
                 </button>
                 <div className={cx("header_line")}></div>
-                <select name="" id="" className={cx("header_select")}>
-                  <option value="VI">VI</option>
-                  <option value="EN">EN</option>
-                </select>
+                {!isSSR && <Language />}
                 <button className={cx("btn", "header_btn")}>
-                  <Link href="/contact">Liên hệ</Link>
+                  {locale === "en" ? (
+                    <Link href="/contact">CONTACT</Link>
+                  ) : (
+                    <Link href="/contact">LIÊN HỆ</Link>
+                  )}
                 </button>
               </div>
             </div>
@@ -106,12 +117,13 @@ function Header() {
                   </div>
                   <MainRoute />
                   <div className={cx("header_action")}>
-                    <select name="" id="" className={cx("header_select")}>
-                      <option value="VI">VI</option>
-                      <option value="EN">EN</option>
-                    </select>
+                    <Language />
                     <button className={cx("btn", "header_btn")}>
-                      <Link href="/contact">Liên hệ</Link>
+                      {locale === "en" ? (
+                        <Link href="/contact">CONTACT</Link>
+                      ) : (
+                        <Link href="/contact">LIÊN HỆ</Link>
+                      )}
                     </button>
                   </div>
                 </div>

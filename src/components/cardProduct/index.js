@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import classNames from "classnames/bind";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 import styles from "./cardProduct.module.scss";
 import Button from "../button";
@@ -10,8 +11,10 @@ const cx = classNames.bind(styles);
 function CardProduct() {
   const [products, setProducts] = useState([]);
   const API_URL = process.env.API_URL;
+  const router = useRouter();
+  const [locale, setLocale] = useState(router.locale);
   useEffect(() => {
-    fetch(`${API_URL}/typical-products`)
+    fetch(`${API_URL}/typical-products?_locale=` + locale)
       .then((res) => res.json())
       .then((product) => {
         setProducts(product);
@@ -52,7 +55,7 @@ function CardProduct() {
                   borderRadius="20px"
                   margin="4% auto"
                 >
-                  Xem chi tiết
+                  {value.title_button}
                 </Button>
               </div>
             </div>
