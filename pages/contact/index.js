@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useState } from "react";
 import classNames from "classnames/bind";
 import ReactMarkdown from "react-markdown";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
@@ -8,28 +8,20 @@ import { useRouter } from "next/router";
 import BannerSlug from "../../src/components/bannerSlug";
 import TitleSection from "../../src/components/titleSection";
 import styles from "./contact.module.scss";
+import Header from "../../src/components/header";
+import Footer from "../../src/components/footer";
 
 const cx = classNames.bind(styles);
 
-function Contact() {
-  const [address, setAddress] = useState([]);
+function Contact({ header, company, footer }) {
   const API_URL = process.env.API_URL;
 
   const router = useRouter();
-  const [locale, setLocale] = useState(router.locale);
 
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [content, setContent] = useState("");
-
-  useEffect(() => {
-    fetch(`${API_URL}/companies?_locale=` + locale)
-      .then((res) => res.json())
-      .then((item) => {
-        setAddress(item);
-      });
-  }, []);
 
   async function addMessage() {
     const messageInfo = {
@@ -68,6 +60,7 @@ function Contact() {
 
   return (
     <Fragment>
+      <Header header={header} />
       {router.locale === "en" ? (
         <>
           <BannerSlug
@@ -95,7 +88,7 @@ function Contact() {
                 <h3>CÔNG TY TNHH PHẦN MỀM HICAS</h3>
               )}
 
-              {address.map((value) => (
+              {company.map((value) => (
                 <div className={cx("address_item")} key={value.id}>
                   <b>{value.Name}</b>
                   {value.addresses.map((item) => (
@@ -208,9 +201,55 @@ function Contact() {
           </div>
         </div>
       </div>
-      ;
+      <Footer footer={footer} />
     </Fragment>
   );
 }
 
 export default Contact;
+
+export async function getServerSideProps(context) {
+  const API_URL = process.env.API_URL;
+  const { locale } = context;
+
+  //Fetch API Header menu
+  let translationHeader = undefined;
+  const HeaderRes = await fetch(`${API_URL}/headers`);
+  const header = await HeaderRes.json();
+  if (locale === "en") {
+    const translationHeaderRes = await fetch(
+      `${API_URL}/headers?_locale=` + locale
+    );
+    translationHeader = await translationHeaderRes.json();
+  }
+
+  //Fetch API Address
+  let translationCompanies = undefined;
+  const companiesRes = await fetch(`${API_URL}/companies`);
+  const company = await companiesRes.json();
+  if (locale === "en") {
+    const translationCompaniesRes = await fetch(
+      `${API_URL}/companies?_locale=` + locale
+    );
+    translationCompanies = await translationCompaniesRes.json();
+  }
+
+  //Fetch API Footer
+  let translationFooter = undefined;
+  const footerRes = await fetch(`${API_URL}/footers`);
+  const footer = await footerRes.json();
+  if (locale === "en") {
+    const translationFooterRes = await fetch(
+      `${API_URL}/footers?_locale=` + locale
+    );
+    translationFooter = await translationFooterRes.json();
+  }
+
+  return {
+    props: {
+      header: translationHeader ? translationHeader : header,
+      company: translationCompanies ? translationCompanies : company,
+      footer: translationFooter ? translationFooter : footer,
+    },
+  };
+}
