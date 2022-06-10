@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Slider from "react-slick";
 import classNames from "classnames/bind";
-import { useRouter } from "next/router";
 
 import styles from "./cardService.module.scss";
 import Button from "../button";

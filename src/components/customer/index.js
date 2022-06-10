@@ -2,11 +2,8 @@ import React from "react";
 import { Fragment, useEffect, useState } from "react";
 import Slider from "react-slick";
 import classNames from "classnames/bind";
-import { faQuoteLeft } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 
-import user from "../../assets/images/user.jpg";
 import styles from "./customer.module.scss";
 
 var settings = {

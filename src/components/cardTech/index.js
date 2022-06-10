@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 
 import styles from "./cardTech.module.scss";
 import Button from "../button";
-import Icon from "../../assets/images/icons/icon_tech.jpg";
+
 const cx = classNames.bind(styles);
 
 function CardTech() {
