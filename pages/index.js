@@ -27,9 +27,10 @@ export default function Home({
   bannerBottom,
   cardService,
   product,
+  news,
 }) {
   const router = useRouter();
-  console.log(product);
+  console.log(news);
   const API_URL = process.env.API_URL;
   var settings = {
     // dots: true,
@@ -198,7 +199,29 @@ export default function Home({
         ) : (
           <TitleSection>Tin tức - sự kiện</TitleSection>
         )}
-        <CardNews />
+        <div className={cx("container")}>
+          <div className={cx("card_news_wapper")}>
+            {news.map((value) => (
+              <CardNews
+                key={value.id}
+                link={value.link}
+                img={value.image[0].url}
+                title={value.title}
+              />
+            ))}
+          </div>
+          <div className={cx("card_news_btn")}>
+            {router.locale === "en" ? (
+              <Button width="170px" href="" borderRadius="18px" mainBtn="true">
+                See more
+              </Button>
+            ) : (
+              <Button width="170px" href="" borderRadius="18px" mainBtn="true">
+                Xem thêm
+              </Button>
+            )}
+          </div>
+        </div>
       </section>
     </Fragment>
   );
@@ -263,6 +286,17 @@ export async function getServerSideProps(context) {
     translationCardProduct = await translationCardProductRes.json();
   }
 
+  //Fetch API News
+  let translationNews = undefined;
+  const newsRes = await fetch(`${API_URL}/news-cards`);
+  const news = await newsRes.json();
+  if (locale === "en") {
+    const translationNewsRes = await fetch(
+      `${API_URL}/news-cards?_locale=` + locale
+    );
+    translationNews = await translationNewsRes.json();
+  }
+
   return {
     props: {
       banner: translationBanner ? translationBanner : banners,
@@ -274,6 +308,7 @@ export async function getServerSideProps(context) {
         ? translationCardService
         : cardService,
       product: translationCardProduct ? translationCardProduct : cardProduct,
+      news: translationNews ? translationNews : news,
     },
   };
 }

@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import classNames from "classnames/bind";
 import Image from "next/image";
-import { useRouter } from "next/router";
 
 import styles from "./cardProduct.module.scss";
 import Button from "../button";
