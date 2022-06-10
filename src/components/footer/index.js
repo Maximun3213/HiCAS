@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState, useEffect, forwardRef } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
 import styles from "./footer.module.scss";
@@ -11,25 +11,18 @@ import logoFooter from "../../assets/images/logo/logo_footer.png";
 
 const cx = classNames.bind(styles);
 
-function Footer() {
+function Footer(footer) {
   const [social, setSocial] = useState([]);
-  const [itemLink, setItemLink] = useState([]);
+  const [email, setEmail] = useState("");
+
   const API_URL = process.env.API_URL;
   const router = useRouter();
-  const [locale, setLocale] = useState(router.locale);
-
-  const [email, setEmail] = useState("");
 
   useEffect(() => {
     fetch(`${API_URL}/social-medias`)
       .then((res) => res.json())
       .then((social) => {
         setSocial(social);
-      });
-    fetch(`${API_URL}/footers?_locale=` + locale)
-      .then((res) => res.json())
-      .then((footer) => {
-        setItemLink(footer);
       });
   }, []);
 
@@ -81,7 +74,7 @@ function Footer() {
                 ))}
               </ul>
             </div>
-            {itemLink.map((value) => (
+            {footer.footer.map((value) => (
               <div className={cx("footer_item")} key={value.id}>
                 <h4>{value.title}</h4>
                 <ul className={cx("footer_menu")}>

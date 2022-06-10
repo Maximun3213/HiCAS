@@ -12,6 +12,7 @@ import Button from "../src/components/button";
 import TitleSection from "../src/components/titleSection";
 
 import Header from "../src/components/header";
+import Footer from "../src/components/footer";
 import CardService from "../src/components/cardService";
 import CardProduct from "../src/components/cardProduct";
 import CardTech from "../src/components/cardTech";
@@ -28,9 +29,9 @@ export default function Home({
   cardService,
   product,
   news,
+  footer,
 }) {
   const router = useRouter();
-  console.log(news);
   const API_URL = process.env.API_URL;
   var settings = {
     // dots: true,
@@ -41,7 +42,7 @@ export default function Home({
     autoplay: true,
     pauseOnHover: false,
   };
-
+  // console.log(footer);
   return (
     <Fragment>
       <Header header={header} />
@@ -223,6 +224,7 @@ export default function Home({
           </div>
         </div>
       </section>
+      <Footer footer={footer} />
     </Fragment>
   );
 }
@@ -297,6 +299,17 @@ export async function getServerSideProps(context) {
     translationNews = await translationNewsRes.json();
   }
 
+  //Fetch API Footer
+  let translationFooter = undefined;
+  const footerRes = await fetch(`${API_URL}/footers`);
+  const footer = await footerRes.json();
+  if (locale === "en") {
+    const translationFooterRes = await fetch(
+      `${API_URL}/footers?_locale=` + locale
+    );
+    translationFooter = await translationFooterRes.json();
+  }
+
   return {
     props: {
       banner: translationBanner ? translationBanner : banners,
@@ -309,6 +322,7 @@ export async function getServerSideProps(context) {
         : cardService,
       product: translationCardProduct ? translationCardProduct : cardProduct,
       news: translationNews ? translationNews : news,
+      footer: translationFooter ? translationFooter : footer,
     },
   };
 }
